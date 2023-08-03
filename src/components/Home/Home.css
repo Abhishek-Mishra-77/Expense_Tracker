@@ -1,4 +1,10 @@
-.home{
-    color: white;
-    
+.container-fluid span{
+  background-color: gray;
+  color: white;
+  border-radius: 7px;
+  font-size: 14px;
+  color: black;
+}
+.anchor{
+   color: #00ffff;
 }

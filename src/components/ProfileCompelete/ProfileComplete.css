@@ -1,0 +1,27 @@
+.mainProfile {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+}
+
+.profile-form {
+  margin-left: 20%;
+}
+.profileName {
+  width: 90%;
+}
+
+.profilePhoto {
+  width: 90%;
+}
+.profile1 {
+  font-weight: bold; 
+}
+h3{
+    font-weight: bold;
+}
+ion-icon {
+  width: 30px;
+  height: 30px;
+}
+

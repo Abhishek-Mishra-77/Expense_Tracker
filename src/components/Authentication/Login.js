@@ -101,7 +101,7 @@ const Login = () => {
         <div className='loginHome'>
             <NavBar/>
             <div className='container-fluid'>
-                <form className='mx-auto' onSubmit={onSubmitHandler}>
+                <form className='mx-auto auto1' onSubmit={onSubmitHandler}>
                     <h4 className='text-center'>{isLogin ? 'Login' : 'Sign Up'}</h4>
                     {!isLogin ? <h6>{misMatch && 'Password Mismatch!'}</h6> : ''}
                     <div className="mb-3 mt-3">
