@@ -1,3 +1,12 @@
+.loginHome {
+  height: 100vh;
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(74, 14, 154, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
 form {
   width: 27%;
   background-color: white;
@@ -42,6 +51,12 @@ h4 {
 h6 {
   color: red;
   text-align: center;
+}
+
+#emailHelp {
+  color: green;
+  font-weight: bold;
+  font-size: 13px;
 }
 .form-label {
   font-family: 700 !important;
