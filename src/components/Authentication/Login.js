@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
 import './Login.css';
 
@@ -130,7 +130,7 @@ const Login = () => {
                             required />
                     </div>
                     {isLogin && <div className='form-text mt-3' id='emailHelp'>
-                        <a href='#'>Forget password?</a>
+                        <Link to={'/password'}>Forget password?</Link>
                     </div>}
                     {!isLogin && <div className="mb-3">
                         <label htmlFor="exampleInputPassword1" className="form-label"></label>
