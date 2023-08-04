@@ -62,6 +62,7 @@ const Login = () => {
                     if (response.ok) {
                         const data = await response.json();
                         console.log('User Successfully SignUp', data);
+                        alert('You are successfully SignUp Go for the login!');
                     }
                     else {
                         const data = await response.json();
@@ -99,7 +100,7 @@ const Login = () => {
 
     return (
         <div className='loginHome'>
-            <NavBar/>
+            <NavBar />
             <div className='container-fluid'>
                 <form className='mx-auto auto1' onSubmit={onSubmitHandler}>
                     <h4 className='text-center'>{isLogin ? 'Login' : 'Sign Up'}</h4>

@@ -1,16 +1,49 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProfileComplete.css';
 
 const ProfileComplete = () => {
 
     const [userName, setUserName] = useState('');
     const [photoUrl, setPhotoUrl] = useState('');
+    const getToken = localStorage.getItem('token');
+
+    useEffect(() => {
+        if (getToken) {
+            const fetchData = async () => {
+                try {
+                    const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyC5JaP5-gXm2_5it7T_EJeMuVqBymRSeXU`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'applications/json'
+                        },
+                        body: JSON.stringify({
+                            idToken: getToken
+                        })
+                    })
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        const userData = data.users;
+                        setPhotoUrl(userData[0].photoUrl);
+                        setUserName(userData[0].displayName)
+                    }
+                    else {
+                        const data = await response.json();;
+                        console.log(data)
+                    }
+                }
+                catch (error) {
+                    console.log(error);
+                }
+            }
+            fetchData()
+        }
+    }, [getToken])
 
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
         const Token = localStorage.getItem('token')
-        console.log(Token)
         try {
             const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC5JaP5-gXm2_5it7T_EJeMuVqBymRSeXU', {
                 method: 'POST',
@@ -27,7 +60,7 @@ const ProfileComplete = () => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log(data)
+                alert('Profile get update!')
             }
             else {
                 const data = await response.json();
