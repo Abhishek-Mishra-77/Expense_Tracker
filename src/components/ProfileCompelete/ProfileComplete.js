@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './ProfileComplete.css';
 
 const ProfileComplete = () => {
@@ -28,12 +29,16 @@ const ProfileComplete = () => {
                         setUserName(userData[0].displayName)
                     }
                     else {
-                        const data = await response.json();;
-                        console.log(data)
+                        const data = await response.json();
+                        let erroMessage = 'verifying fails!';
+                        if (data && data.error && data.error.message) {
+                            erroMessage = data.error.message;
+                        }
+                        throw new Error(erroMessage);
                     }
                 }
                 catch (error) {
-                    console.log(error);
+                    console.log(error.message);
                 }
             }
             fetchData()
@@ -76,8 +81,6 @@ const ProfileComplete = () => {
             alert(error.message)
             console.log(error)
         }
-
-
     };
 
     return (
@@ -121,7 +124,7 @@ const ProfileComplete = () => {
                     </div>
                     <div className="col-auto mt-4">
                         <button type="submit" className="btn btn-warning">Update</button>
-                        {/* <button style={{ marginLeft: '2rem' }} type="button" className="btn btn-danger">Cancel</button> */}
+                        <Link to={'/home'} style={{ marginLeft: '2rem' }} type="button" className="btn btn-danger">Cancel</Link>
                     </div>
                 </form>
                 <div>

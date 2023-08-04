@@ -10,6 +10,7 @@ const Login = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [misMatch, setMismatch] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
+    const [verificationEmail, setVerificationEmail] = useState(false);
     const navigate = useNavigate();
 
 
