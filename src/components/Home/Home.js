@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Home.css'
 
 const Home = () => {
 
+    const navigate = useNavigate();
 
     const verifyEmailHandler = async () => {
         const idToken = localStorage.getItem('token')
@@ -38,6 +39,13 @@ const Home = () => {
     }
 
 
+    const logOutHandler = () => {
+        alert('Are you sure your want to logOut?')
+        localStorage.removeItem('token');
+        navigate('/')
+    }
+
+
 
     return (
         <>
@@ -47,6 +55,7 @@ const Home = () => {
                     <span className="badge text-bg-secondary">Your profile is incomplete.
                         <Link to={'/ProfileComplete'} className='anchor' href='#'>Complete now</Link>
                         <button onClick={verifyEmailHandler} style={{ marginLeft: '2rem' }} type="submit" className="btn btn-success">verify Email</button>
+                        <button onClick={logOutHandler} style={{ marginLeft: '2rem' }} type="submit" className="btn btn-danger">LogOut</button>
                     </span>
 
                 </div>
