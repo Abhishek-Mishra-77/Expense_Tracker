@@ -10,6 +10,7 @@ const ExpenseForm = () => {
     const [enteredDescription, setEnteredDescription] = useState('');
     const [enteredAmount, setEntedAmount] = useState('');
     const [productType, setProducType] = useState('');
+    const [takeId, setTakeId] = useState('');
     const email = localStorage.getItem('email');
     const isLoggegIn = !!email;
 
@@ -28,9 +29,10 @@ const ExpenseForm = () => {
 
                     if (response.ok) {
                         const data = await response.json();
-                        const expenseData = Object.values(data);
-                        setExpenseItems(expenseData)
-                        console.log(data);
+                        if (data) {
+                            const expenseData = Object.values(data);
+                            setExpenseItems(expenseData)
+                        }
                     }
                     else {
                         const data = await response.json();
@@ -53,58 +55,192 @@ const ExpenseForm = () => {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-        console.log(enteredDescription, enteredAmount, productType)
 
         const newExpense = {
             enteredAmount,
             enteredDescription,
             productType,
         }
-        const newExpenseItems = {
-            id: Math.random().toString(),
-            ...newExpense,
-        }
-        setExpenseItems((prevExpense) => {
-            const newItem = [...prevExpense, newExpenseItems]
-            console.log(newItem)
-            return newItem;
-        })
 
+        const userEmail = email.replace(/[@.]/g, '');
+
+
+        if (takeId) {
+            setExpenseItems((prevExpense) => {
+                const updatedExpense = prevExpense.map((expense) => {
+                    if (expense.id === takeId) {
+                        return {
+                            ...expense,
+                            enteredAmount: enteredAmount,
+                            enteredDescription: enteredDescription,
+                            productType: productType
+                        }
+                    }
+                    return expense;
+                })
+                return updatedExpense;
+            })
+
+
+            try {
+                const response = await fetch(`https://expense-tracker-40eba-default-rtdb.firebaseio.com/expense${userEmail}.json`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'applications/json'
+                    }
+                })
+
+                if (response.ok) {
+                    const data = await response.json()
+                    const dataItem = Object.values(data).find((item) => item.id === takeId);
+                    const uniqueId = Object.keys(data).find((key) => data[key] === dataItem)
+
+                    const response1 = await fetch(`https://expense-tracker-40eba-default-rtdb.firebaseio.com/expense${userEmail}/${uniqueId}.json`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'applications/json'
+                        },
+                        body: JSON.stringify({
+                            id: takeId,
+                            enteredAmount: enteredAmount,
+                            enteredDescription: enteredDescription,
+                            productType: productType
+                        })
+                    })
+
+                    if (response1.ok) {
+                        const data = await response1.json();
+                        console.log(data);
+                    }
+                    else {
+                        const data = await response1.json();
+                        let errorMessage = 'Request fails!';
+                        if (data && data.error && data.error.message) {
+                            errorMessage = data.error.message;
+                        }
+                        throw new Error(errorMessage);
+                    }
+                }
+            }
+            catch (error) {
+                alert(error.message)
+                console.log(error.message)
+            }
+
+        }
+        else {
+            const newExpenseItems = {
+                id: Math.random().toString(),
+                ...newExpense,
+            }
+            setExpenseItems((prevExpense) => {
+                const newItem = [...prevExpense, newExpenseItems]
+                return newItem;
+            })
+
+
+            try {
+                const response = await fetch(`https://expense-tracker-40eba-default-rtdb.firebaseio.com/expense${userEmail}.json`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'applications/json'
+                    },
+                    body: JSON.stringify({
+                        enteredAmount: newExpenseItems.enteredAmount,
+                        enteredDescription: newExpenseItems.enteredDescription,
+                        id: newExpenseItems.id,
+                        productType: newExpenseItems.productType
+                    })
+                })
+
+
+                if (response.ok) {
+                    const data = await response.json();
+                }
+                else {
+                    const data = await response.json();
+                    let errroMessage = "Athentication fails!";
+                    if (data && data.error && data.error.message) {
+                        errroMessage = data.error.message;
+                    }
+                    throw new Error(errroMessage);
+                }
+            }
+            catch (error) {
+                console.log(error.message);
+            }
+        }
+
+
+
+
+
+        setEntedAmount('');
+        setEnteredDescription('');
+        setProducType('');
+
+    }
+
+
+    const removeExpenseHandler = async (id) => {
+        setExpenseItems((expenseItems) => {
+            const newExpenses = expenseItems.filter((expense) => expense.id !== id);
+            return newExpenses;
+        })
 
         const userEmail = email.replace(/[@.]/g, '');
 
         try {
             const response = await fetch(`https://expense-tracker-40eba-default-rtdb.firebaseio.com/expense${userEmail}.json`, {
-                method: 'POST',
+                method: 'GET',
                 headers: {
                     'Content-Type': 'applications/json'
-                },
-                body: JSON.stringify({
-                    enteredAmount: enteredAmount,
-                    enteredDescription: enteredDescription,
-                    productType: productType
-                })
+                }
             })
 
             if (response.ok) {
                 const data = await response.json();
-            }
-            else {
-                const data = await response.json();
-                let errroMessage = "Athentication fails!";
-                if (data && data.error && data.error.message) {
-                    errroMessage = data.error.message;
+                const dataItem = Object.values(data).find((item) => item.id === id);
+                const uniqueId = Object.keys(data).find((key) => data[key] === dataItem);
+
+                const response1 = await fetch(`https://expense-tracker-40eba-default-rtdb.firebaseio.com/expense${userEmail}/${uniqueId}.json`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'applications/json'
+                    }
+                })
+
+
+                if (response1.ok) {
+                    const data = await response1.json();
                 }
-                throw new Error(errroMessage);
+                else {
+                    const data = await response.json();
+                    let errorMessage = 'Fetching data fails!';
+                    if (data && data.error && data.error.message) {
+                        errorMessage = data.error.message;
+                    }
+                    throw new Error(errorMessage);
+                }
             }
         }
         catch (error) {
-            console.log(error.message);
+            console.log(error.message)
         }
 
-
-
     }
+
+
+    const editExpenseHandler = (expense) => {
+        const { enteredDescription, enteredAmount, productType, id } = expense;
+        setTakeId(id)
+        setEnteredDescription(enteredDescription)
+        setEntedAmount(enteredAmount)
+        setProducType(productType)
+    }
+
+
+
 
     const Expense = (
         <>
@@ -114,20 +250,13 @@ const ExpenseForm = () => {
                     enteredDescription={expense.enteredDescription}
                     enteredAmount={expense.enteredAmount}
                     productType={expense.productType}
+                    id={expense.id}
+                    removeExpenseHandler={removeExpenseHandler}
+                    editExpenseHandler={editExpenseHandler}
                 />
             ))}
         </>
     )
-
-    useEffect(() => {
-        const fetchExpense = JSON.parse(localStorage.getItem('expense'));
-        if (fetchExpense) {
-            setExpenseItems(fetchExpense);
-        }
-        else {
-            setExpenseItems([]);
-        }
-    }, [])
 
 
 
@@ -160,7 +289,8 @@ const ExpenseForm = () => {
                                     onChange={(e) => setEnteredDescription(e.target.value)}
                                     type='text'
                                     className='form-control input-expense-description'
-                                    placeholder='Description' />
+                                    placeholder='Description'
+                                    required />
                             </div>
                             <div className='col-3'>
                                 <input
@@ -168,7 +298,8 @@ const ExpenseForm = () => {
                                     onChange={(e) => setEntedAmount(e.target.value)}
                                     type='number'
                                     className='form-control input-expense-value'
-                                    placeholder='Value' />
+                                    placeholder='Value'
+                                    required />
                             </div>
                             <div className='col-3'>
                                 <div className="btn-group">
@@ -179,25 +310,25 @@ const ExpenseForm = () => {
                                         <li><a
                                             onClick={(e) => setProducType('Food')}
                                             className="dropdown-item"
-                                            href="#"
+                                            required
                                             value='Food'>Food
                                         </a></li>
                                         <li><a
                                             onClick={(e) => setProducType('Petrol')}
                                             className="dropdown-item"
-                                            href="#"
+                                            required
                                             value='Petrol'>Petrol
                                         </a></li>
                                         <li><a
+                                            required
                                             onClick={(e) => setProducType('Salary')}
                                             className="dropdown-item"
-                                            href="#"
                                             value='Salary'>Salary
                                         </a></li>
                                         <li><a
+                                            required
                                             onClick={(e) => setProducType('etc')}
                                             className="dropdown-item"
-                                            href="#"
                                             value='etc'>etc.
                                         </a></li>
                                     </ul>
@@ -223,7 +354,8 @@ const ExpenseForm = () => {
                                         <th scope="col">Description</th>
                                         <th scope="col">Category</th>
                                         <th scope="col">Amount</th>
-                                        <th scope="col">Delete</th>
+                                        <th scope="col">Remove Expense</th>
+                                        <th scope="col">Edit Expense</th>
                                     </tr>
                                 </thead>
                                 <tbody className="table-success">
