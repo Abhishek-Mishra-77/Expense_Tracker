@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ForgetPassword.css';
 import NavBar from '../NavBar/NavBar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate , Link } from 'react-router-dom';
 
 const ForgetPassword = () => {
 
@@ -30,7 +30,6 @@ const ForgetPassword = () => {
                     const data = await response.json();
                     alert('check your email and reset the password!');
                     setIsLoading(false);
-                    navigate('/')
                 }
                 else {
                     const data = await response.json();
@@ -46,6 +45,9 @@ const ForgetPassword = () => {
                 console.log(error.message);
             }
         }
+        else {
+            alert('Fill the Email input')
+        }
     }
 
     return (
@@ -53,7 +55,7 @@ const ForgetPassword = () => {
             <NavBar />
             <form className='form' onSubmit={onSubmitHandler}>
                 <div className='control'>
-                    <label htmlFor='new-password'>Enter Email</label>
+                    <label htmlFor='new-password'>Enter Email:</label>
                     <input
                         value={enteredEmail}
                         onChange={(e) => setEnteredEmail(e.target.value)}
@@ -63,8 +65,10 @@ const ForgetPassword = () => {
                 <div className='action'>
                     {!isLoading && <button>Change Password</button>}
                     {isLoading && <p>Sending request....</p>}
+                    <Link to={'/Auth'}><button style={{ marginLeft: '2rem' }} type="submit" className="btn btn-danger">Back</button></Link>
                 </div>
             </form>
+
         </div>
     )
 }

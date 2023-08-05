@@ -85,16 +85,15 @@ const ProfileComplete = () => {
 
     return (
         <div>
-            <nav className="navbar bg-body-tertiary mt-1">
+            <nav className="navbar navbar1">
                 <div className="container-fluid">
-                    <h5 className='heading'> Winners never quite , Quitters never win.</h5>
+                    <h3 className='heading'> Winners never quite , Quitters never win.</h3>
                     <span className="badge text-bg-secondary">Your profile is 64% completed. A complete Profile has <br />
                         higher changes of landing a job .
                         <a to={'/ProfileComplete'} className='anchor' href='#'>Complete now</a>
                     </span>
                 </div>
             </nav >
-            <hr />
 
             <div className='mainProfile mt-5'>
                 <form className="row align-items-center profile-form" onSubmit={onSubmitHandler}>
@@ -124,7 +123,7 @@ const ProfileComplete = () => {
                     </div>
                     <div className="col-auto mt-4">
                         <button type="submit" className="btn btn-warning">Update</button>
-                        <Link to={'/home'} style={{ marginLeft: '2rem' }} type="button" className="btn btn-danger">Cancel</Link>
+                        <Link to={'/user/profile'} style={{ marginLeft: '2rem' }} type="button" className="btn btn-danger">Cancel</Link>
                     </div>
                 </form>
                 <div>

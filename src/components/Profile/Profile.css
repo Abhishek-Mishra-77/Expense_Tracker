@@ -1,0 +1,168 @@
+.profile {
+  margin-top: -1rem;
+}
+
+.container-fluid span {
+  background-color: gray;
+  border-radius: 7px;
+  font-size: 14px;
+}
+.anchor {
+  color: #00ffff;
+}
+
+.bg-body-tertiary {
+  height: 5rem;
+}
+
+.logo1 {
+  width: 50px;
+  height: 50px;
+}
+
+.logo_name1 {
+  font-weight: bold;
+  margin-left: -42rem;
+  color: green;
+}
+.mainSection {
+  max-width: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.left-container {
+  height: 100vh;
+  background-image: linear-gradient(#0277bd #03a9f4);
+  background-position: center;
+  background-size: cover;
+  position: relative;
+
+}
+
+.right-container {
+  height: 100vh;
+  position: relative;
+}
+
+.header {
+  font-weight: 22px;
+  font-size: 36px;
+}
+.sub-text {
+  font-size: 22px;
+  font-weight: 400;
+}
+
+.month-container {
+  padding-top: 15%;
+  padding-left: 5%;
+  padding-right: 5%;
+
+
+}
+.calc-container {
+  padding-top: 7%;
+  padding-left: 5%;
+
+}
+
+.fs-white {
+  color: #ffffff;
+}
+
+.fs-dark-grey {
+  color: #4e4e4e;
+  font-size: 45px;
+}
+
+.budget-container {
+  display: inline-block;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 6px 4px #000000;
+}
+.month-amount {
+  font-size: 36px;
+  font-weight: 700;
+  color: grey;
+}
+
+.bottom-border {
+  border-bottom: 1px solid #00446d;
+}
+
+.expenseSection {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    90deg,
+    rgb(27, 23, 101) 0%,
+    rgba(0, 212, 255, 1) 100%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
+.expense-row {
+  padding: 10px;
+}
+
+table,
+th,
+th {
+  padding: 1rem;
+}
+
+td img{
+  width: 36px;
+  height: 36px;
+  margin-right: .5rem;
+  vertical-align: middle;
+}
+
+.headMain {
+  color: white;
+  font-weight: bold;
+}
+
+main.table1 {
+  width: 100%;
+  height: 90vh;
+  background-color: #fff5;
+  backdrop-filter: blur(7px);
+  box-shadow: 0 .4rem .8rem #0005;
+  border-radius: 0.8rem;
+}
+
+.table_header{
+  width: 100%;
+  height: 10%;
+  background-color: #fff4;
+  padding: .8rem 1rem;
+}
+
+.table_body{
+  width: 95%;
+  max-height: calc(87% - .8rem);
+  background-color: #fffb;
+  margin: 0.8rem auto;
+  border-radius: 0.6rem;
+  overflow: auto;
+}
+
+.table_body::-webkit--scropllbar{
+  width: 0.5rem;
+  height: 0.5rem;
+}

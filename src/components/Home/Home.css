@@ -1,10 +1,12 @@
-.container-fluid span{
-  background-color: gray;
-  color: white;
-  border-radius: 7px;
-  font-size: 14px;
-  color: black;
-}
-.anchor{
-   color: #00ffff;
+.home { 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 7rem auto;
+} 
+
+.home h2 {
+    color: white;
+    font-weight: bold;
+    font-size: 5rem;
 }

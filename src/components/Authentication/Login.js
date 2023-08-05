@@ -10,7 +10,6 @@ const Login = () => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [misMatch, setMismatch] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
-    const [verificationEmail, setVerificationEmail] = useState(false);
     const navigate = useNavigate();
 
 
@@ -34,7 +33,7 @@ const Login = () => {
                 if (response.ok) {
                     const data = await response.json();
                     localStorage.setItem('token', data.idToken);
-                    navigate('/Home')
+                    navigate('/user/profile')
                     console.log('User Successfully loggedIn', data);
                 }
                 else {
