@@ -10,10 +10,48 @@ const ExpenseForm = () => {
     const [enteredDescription, setEnteredDescription] = useState('');
     const [enteredAmount, setEntedAmount] = useState('');
     const [productType, setProducType] = useState('');
+    const email = localStorage.getItem('email');
+    const isLoggegIn = !!email;
 
 
+    useEffect(() => {
+        if (isLoggegIn) {
+            const userEmail = email.replace(/[@.]/g, '');
+            const fetchExpense = async () => {
+                try {
+                    const response = await fetch(`https://expense-tracker-40eba-default-rtdb.firebaseio.com/expense${userEmail}.json`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'applications/json'
+                        }
+                    })
 
-    const onSubmitHandler = (e) => {
+                    if (response.ok) {
+                        const data = await response.json();
+                        const expenseData = Object.values(data);
+                        setExpenseItems(expenseData)
+                        console.log(data);
+                    }
+                    else {
+                        const data = await response.json();
+                        let errorMessage = 'Fetch fails!';
+                        if (data && data.error && data.error.message) {
+                            errorMessage = data.error.message;
+                        }
+
+                        throw new Error(errorMessage);
+                    }
+                }
+                catch (error) {
+                    console.log(error.message);
+                }
+            }
+            fetchExpense()
+        }
+    }, [isLoggegIn])
+
+
+    const onSubmitHandler = async (e) => {
         e.preventDefault();
         console.log(enteredDescription, enteredAmount, productType)
 
@@ -22,19 +60,50 @@ const ExpenseForm = () => {
             enteredDescription,
             productType,
         }
-
         const newExpenseItems = {
             id: Math.random().toString(),
             ...newExpense,
         }
-
         setExpenseItems((prevExpense) => {
             const newItem = [...prevExpense, newExpenseItems]
-
             console.log(newItem)
-            localStorage.setItem('expense', JSON.stringify(newItem))
             return newItem;
         })
+
+
+        const userEmail = email.replace(/[@.]/g, '');
+
+        try {
+            const response = await fetch(`https://expense-tracker-40eba-default-rtdb.firebaseio.com/expense${userEmail}.json`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'applications/json'
+                },
+                body: JSON.stringify({
+                    enteredAmount: enteredAmount,
+                    enteredDescription: enteredDescription,
+                    productType: productType
+                })
+            })
+
+            if (response.ok) {
+                const data = await response.json();
+            }
+            else {
+                const data = await response.json();
+                let errroMessage = "Athentication fails!";
+                if (data && data.error && data.error.message) {
+                    errroMessage = data.error.message;
+                }
+                throw new Error(errroMessage);
+            }
+        }
+        catch (error) {
+            console.log(error.message);
+        }
+
+
+
     }
 
     const Expense = (

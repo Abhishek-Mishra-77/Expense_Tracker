@@ -33,8 +33,8 @@ const Login = () => {
                 if (response.ok) {
                     const data = await response.json();
                     localStorage.setItem('token', data.idToken);
+                    localStorage.setItem('email', data.email);
                     navigate('/user/profile')
-                    console.log('User Successfully loggedIn', data);
                 }
                 else {
                     const data = await response.json();
@@ -61,7 +61,6 @@ const Login = () => {
                     })
                     if (response.ok) {
                         const data = await response.json();
-                        console.log('User Successfully SignUp', data);
                         alert('You are successfully SignUp Go for the login!');
                     }
                     else {
