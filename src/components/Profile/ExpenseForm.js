@@ -3,6 +3,8 @@ import './ExpenseForm.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import ExpenseItems from './ExpenseItems';
+import { useDispatch, useSelector } from 'react-redux';
+import { expenseActions } from '../../store/expenseReducer';
 
 const ExpenseForm = () => {
 
@@ -13,6 +15,10 @@ const ExpenseForm = () => {
     const [takeId, setTakeId] = useState('');
     const email = localStorage.getItem('email');
     const isLoggegIn = !!email;
+    const dispatch = useDispatch();
+    const totalAmount = useSelector(state => state.amount.totalAmount);
+
+
 
 
     useEffect(() => {
@@ -31,7 +37,13 @@ const ExpenseForm = () => {
                         const data = await response.json();
                         if (data) {
                             const expenseData = Object.values(data);
+                            let totalAmount = 0;
+                            for (const data in expenseData) {
+                                const price = parseInt(expenseData[data].enteredAmount)
+                                totalAmount = totalAmount + price;
+                            }
                             setExpenseItems(expenseData)
+                            dispatch(expenseActions.expenseAmount(totalAmount))
                         }
                     }
                     else {
@@ -50,7 +62,7 @@ const ExpenseForm = () => {
             }
             fetchExpense()
         }
-    }, [isLoggegIn])
+    }, [isLoggegIn, enteredAmount , totalAmount])
 
 
     const onSubmitHandler = async (e) => {
@@ -268,7 +280,8 @@ const ExpenseForm = () => {
                     <div className='header fs-white'>Your Budget</div>
                     <div className='sub-text fs-white'></div>
                     <div className='budget-container p-2 mt-4'>
-                        <span className='month-amount'>₹36.0</span>
+                        <span className='month-amount'>₹{totalAmount}</span>
+                        {totalAmount > 10000 &&<button style={{marginLeft:'2rem'}} type="button" className="btn btn-success">Activate Premium</button>}
                     </div>
                 </div>
 
@@ -344,7 +357,9 @@ const ExpenseForm = () => {
                 <section className='expenseSection'>
                     <main className='table1 mt-5'>
                         <section className='table_header'>
-                            <h1 className='headMain'>Your Expenses</h1>
+                            <div>
+                                <h1 className='headMain'>Your Expenses</h1>
+                            </div>
                         </section>
                         <section className='table_body'>
                             <table className="table">

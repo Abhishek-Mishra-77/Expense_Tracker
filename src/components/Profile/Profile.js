@@ -46,6 +46,7 @@ const Home = (props) => {
     const logOutHandler = () => {
         alert('Are you sure your want to logOut?')
         localStorage.removeItem('token');
+        localStorage.removeItem('email')
         navigate('/Auth')
     }
 

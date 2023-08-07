@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
+import { useDispatch } from 'react-redux'
+import { authActions } from '../../store/auth';
 import './Login.css';
 
 const Login = () => {
@@ -11,6 +13,7 @@ const Login = () => {
     const [misMatch, setMismatch] = useState(false);
     const [isLogin, setIsLogin] = useState(true);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
 
 
@@ -32,8 +35,10 @@ const Login = () => {
                 })
                 if (response.ok) {
                     const data = await response.json();
-                    localStorage.setItem('token', data.idToken);
-                    localStorage.setItem('email', data.email);
+                    dispatch(authActions.emailId(data.email))
+                    dispatch(authActions.tokenId(data.idToken))
+                    console.log(data)
+
                     navigate('/user/profile')
                 }
                 else {
@@ -62,6 +67,7 @@ const Login = () => {
                     if (response.ok) {
                         const data = await response.json();
                         alert('You are successfully SignUp Go for the login!');
+                        console.log(data)
                     }
                     else {
                         const data = await response.json();
