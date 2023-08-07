@@ -65,21 +65,6 @@ const Home = (props) => {
                                 style={{ color: 'green', fontWeightL: 'bold', fontSize: '40px' }}
                                 className="navbar-brand logo_name1"
                                 htmlFor="#">MyWebLink</Link>
-
-                            <div className="collapse navbar-collapse" id="navbarNav">
-                                <ul className="navbar-nav">
-                                    <li className="nav-item">
-                                        <Link to={'/home'} className="nav-link active" htmlFor="#">Home</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to={'/user/profile'} className="nav-link" htmlFor="#">Profile</Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <a className="nav-link" htmlFor="#">About Us</a>
-                                    </li>
-
-                                </ul>
-                            </div>
                             <span className="badge text-bg-secondary">Your profile is incomplete.
                                 <Link to={'/user/ProfileComplete'} className='anchor' href='#'>Complete now</Link>
                                 <button onClick={verifyEmailHandler} style={{ marginLeft: '2rem' }} type="submit" className="btn btn-success">verify Email</button>
@@ -87,9 +72,9 @@ const Home = (props) => {
                             </span>
                         </div>
                     </nav >
-                   <ExpenseForm>
-                    {props.children}
-                   </ExpenseForm>
+                    <ExpenseForm>
+                        {props.children}
+                    </ExpenseForm>
                 </div>
 
             </section>

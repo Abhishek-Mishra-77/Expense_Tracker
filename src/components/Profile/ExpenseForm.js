@@ -5,6 +5,8 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import ExpenseItems from './ExpenseItems';
 import { useDispatch, useSelector } from 'react-redux';
 import { expenseActions } from '../../store/expenseReducer';
+import { themeActions } from '../../store/themeReducer';
+
 
 const ExpenseForm = () => {
 
@@ -17,6 +19,9 @@ const ExpenseForm = () => {
     const isLoggegIn = !!email;
     const dispatch = useDispatch();
     const totalAmount = useSelector(state => state.amount.totalAmount);
+    const allExpenses = useSelector(state => state.amount.allExpenses);
+    const activePremium = useSelector(state => state.active.active)
+    const toggleTheme = useSelector(state => state.active.theme)
 
 
 
@@ -44,6 +49,7 @@ const ExpenseForm = () => {
                             }
                             setExpenseItems(expenseData)
                             dispatch(expenseActions.expenseAmount(totalAmount))
+                            dispatch(expenseActions.allExpenses(expenseData))
                         }
                     }
                     else {
@@ -62,7 +68,7 @@ const ExpenseForm = () => {
             }
             fetchExpense()
         }
-    }, [isLoggegIn, enteredAmount , totalAmount])
+    }, [isLoggegIn, enteredAmount, totalAmount])
 
 
     const onSubmitHandler = async (e) => {
@@ -272,19 +278,58 @@ const ExpenseForm = () => {
 
 
 
+    const onExpenseHandler = () => {
+        dispatch(themeActions.activePrimium())
+    }
+
+    const onToggleHandler = () => {
+        dispatch(themeActions.themeToggle())
+
+        if (toggleTheme) {
+            document.body.style.background = 'black'
+        }
+        else {
+            document.body.style.background = "linear-gradient(90deg, rgb(27, 23, 101) 0%, rgba(0, 212, 255, 1) 100%, rgba(0, 212, 255, 1) 100%)";
+        }
+    }
+
+
+    const onExpenseDataHandler = () => {
+        const a2 = document.getElementById('a2');
+
+        const dataFile = JSON.stringify(allExpenses);
+
+        const blob = new Blob([dataFile], { type: 'application/json' });
+        console.log(blob)
+        a2.href = URL.createObjectURL(blob)
+    }
+
+
+
+
 
     return (
         <div className='row mainSection' style={{ color: 'white' }}>
             <div className='col-4 left-container'>
                 <div className='month-container'>
+                    {activePremium && <div className="form-check form-switch">
+                        <input
+                            className="form-check-input"
+                            type="checkbox" role="switch"
+                            id="flexSwitchCheckDefault"
+                            onClick={onToggleHandler} />
+                        <label className="form-check-label" htmlFor="flexSwitchCheckDefault">theme</label>
+                    </div>}
                     <div className='header fs-white'>Your Budget</div>
                     <div className='sub-text fs-white'></div>
                     <div className='budget-container p-2 mt-4'>
                         <span className='month-amount'>₹{totalAmount}</span>
-                        {totalAmount > 10000 &&<button style={{marginLeft:'2rem'}} type="button" className="btn btn-success">Activate Premium</button>}
+                        {totalAmount > 10000 && <button onClick={onExpenseHandler} style={{ marginLeft: '2rem' }} type="button" className="btn btn-success">Activate Premium</button>}
                     </div>
+                    {activePremium && <div className='budget-container  mt-4'>
+                        <a id='a2' download={'ExpenseData.csv'} onClick={onExpenseDataHandler} className='month-amount'>Download</a>
+                    </div>}
                 </div>
-
                 <div className='chart-container'>
                     <canvas id='expense-chart'></canvas>
                 </div>
