@@ -12,11 +12,11 @@ const authSlice = createSlice({
     reducers: {
         tokenId(state, action) {
             state.IdToken = action.payload
-            localStorage.setItem('token', JSON.stringify(state.IdToken))
+            localStorage.setItem('token', state.IdToken)
         },
         emailId(state, action) {
             state.email = action.payload
-            localStorage.setItem('email', JSON.stringify(state.email))
+            localStorage.setItem('email', state.email)
         },
     }
 })

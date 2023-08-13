@@ -8,6 +8,7 @@ const ProfileComplete = () => {
     const [photoUrl, setPhotoUrl] = useState('');
     const getToken = localStorage.getItem('token');
 
+
     useEffect(() => {
         if (getToken) {
             const fetchData = async () => {
@@ -22,10 +23,12 @@ const ProfileComplete = () => {
                         })
                     })
 
+
                     if (response.ok) {
                         const data = await response.json();
                         const userData = data.users;
                         setPhotoUrl(userData[0].photoUrl);
+                        console.log(userData[0].photoUrl)
                         setUserName(userData[0].displayName)
                     }
                     else {
@@ -48,12 +51,11 @@ const ProfileComplete = () => {
 
     const onSubmitHandler = async (e) => {
         e.preventDefault();
-        const Token = localStorage.getItem('token')
         try {
             const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyC5JaP5-gXm2_5it7T_EJeMuVqBymRSeXU', {
                 method: 'POST',
                 body: JSON.stringify({
-                    idToken: Token,
+                    idToken: getToken,
                     displayName: userName,
                     photoUrl: photoUrl,
                     returnSecureToken: true
@@ -62,6 +64,9 @@ const ProfileComplete = () => {
                     'Content-Type': 'applications/json'
                 }
             })
+            console.log(getToken)
+
+            console.log(response)
 
             if (response.ok) {
                 const data = await response.json();

@@ -25,7 +25,6 @@ const ExpenseForm = () => {
 
 
 
-
     useEffect(() => {
         if (isLoggegIn) {
             const userEmail = email.replace(/[@.]/g, '');
@@ -68,7 +67,7 @@ const ExpenseForm = () => {
             }
             fetchExpense()
         }
-    }, [isLoggegIn, enteredAmount, totalAmount])
+    }, [isLoggegIn, enteredAmount, totalAmount, email])
 
 
     const onSubmitHandler = async (e) => {
@@ -189,10 +188,6 @@ const ExpenseForm = () => {
             }
         }
 
-
-
-
-
         setEntedAmount('');
         setEnteredDescription('');
         setProducType('');
@@ -309,7 +304,7 @@ const ExpenseForm = () => {
 
 
     return (
-        <div className='row mainSection' style={{ color: 'white' }}>
+        <div className='row mainSection' style={{ color: 'white' }} data-testid='ExpenseForm'>
             <div className='col-4 left-container'>
                 <div className='month-container'>
                     {activePremium && <div className="form-check form-switch">
@@ -336,7 +331,7 @@ const ExpenseForm = () => {
             </div>
 
             <div className='col-7 right-container'>
-                <form onSubmit={onSubmitHandler}>
+                <form onSubmit={onSubmitHandler} >
                     <div className='calc-container'>
                         <div className='header fs-dark-grey'>Daily Expense Budget</div>
                         <div className='mt-3 tracking-text text-capitalize sub-text buttom-border'>Tracking Savings 💰</div>

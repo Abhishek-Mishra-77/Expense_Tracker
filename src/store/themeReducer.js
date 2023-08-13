@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
 const intialState = { active: false, theme: false };
 
 const themeSlice = createSlice({
@@ -8,7 +7,6 @@ const themeSlice = createSlice({
     reducers: {
         activePrimium(state) {
             state.active = !state.active
-            console.log(state.active)
         },
         themeToggle(state) {
             state.theme = !state.theme

@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import './ForgetPassword.css';
 import NavBar from '../NavBar/NavBar';
-import { useNavigate , Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ForgetPassword = () => {
 
     const [enteredEmail, setEnteredEmail] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const navigate = useNavigate();
 
 
     const onSubmitHandler = async (e) => {
