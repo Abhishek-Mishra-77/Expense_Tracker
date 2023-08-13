@@ -90,7 +90,7 @@ const ProfileComplete = () => {
 
     return (
         <div>
-            <nav className="navbar navbar1">
+            <nav className="navbar navbar1" data-testid='Profilecomplete'>
                 <div className="container-fluid">
                     <h3 className='heading'> Winners never quite , Quitters never win.</h3>
                     <span className="badge text-bg-secondary">Your profile is 64% completed. A complete Profile has <br />
