@@ -304,7 +304,7 @@ const ExpenseForm = () => {
 
 
     return (
-        <div className='row mainSection' style={{ color: 'white' }} data-testid='ExpenseForm'>
+        <div className='row mainSection' style={{ color: 'white' }}>
             <div className='col-4 left-container'>
                 <div className='month-container'>
                     {activePremium && <div className="form-check form-switch">
@@ -318,7 +318,7 @@ const ExpenseForm = () => {
                     <div className='header fs-white'>Your Budget</div>
                     <div className='sub-text fs-white'></div>
                     <div className='budget-container p-2 mt-4'>
-                        <span className='month-amount'>₹{totalAmount}</span>
+                        <span className='month-amount'>₹{totalAmount || 0}</span>
                         {totalAmount > 10000 && <button onClick={onExpenseHandler} style={{ marginLeft: '2rem' }} type="button" className="btn btn-success">Activate Premium</button>}
                     </div>
                     {activePremium && <div className='budget-container  mt-4'>
@@ -413,7 +413,7 @@ const ExpenseForm = () => {
                                         <th scope="col">Edit Expense</th>
                                     </tr>
                                 </thead>
-                                <tbody className="table-success">
+                                <tbody className="table-success" data-testid='ExpenseForm'>
                                     {Expense}
                                 </tbody>
                             </table>

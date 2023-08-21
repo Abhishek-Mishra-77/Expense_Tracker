@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import ExpenseForm from './ExpenseForm';
+import { expenseActions } from '../../store/expenseReducer';
 import './Profile.css'
 
 
@@ -8,6 +10,7 @@ const Home = (props) => {
 
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
 
     const verifyEmailHandler = async () => {
@@ -46,6 +49,7 @@ const Home = (props) => {
     const logOutHandler = () => {
         alert('Are you sure your want to logOut?')
         localStorage.removeItem('token');
+        dispatch(expenseActions.expenseAmount())
         localStorage.removeItem('email')
         navigate('/Auth')
     }
@@ -59,11 +63,11 @@ const Home = (props) => {
                 <div className='profile'>
                     <nav className="navbar bg-body-tertiary mt-3">
                         <div className="container-fluid">
-                            <img src='https://tse2.mm.bing.net/th?id=OIP.-BAxDoBAPrGrPwvP_4eVmQHaGQ&pid=Api&P=0&h=180' className='logo1' alt='logo' />
+                            {/* <img src='https://tse2.mm.bing.net/th?id=OIP.-BAxDoBAPrGrPwvP_4eVmQHaGQ&pid=Api&P=0&h=180' className='logo1' alt='logo' /> */}
                             <Link
                                 to={'/'}
-                                style={{ color: 'green', fontWeightL: 'bold', fontSize: '40px' }}
-                                className="navbar-brand logo_name1"
+                                style={{ color: 'green', fontWeightL: 'bold', fontSize: '40px', fontWeight:'bold' }}
+                                className="navbar-brand "
                                 htmlFor="#">MyWebLink</Link>
                             <span className="badge text-bg-secondary">Your profile is incomplete.
                                 <Link to={'/user/ProfileComplete'} className='anchor' href='#'>Complete now</Link>

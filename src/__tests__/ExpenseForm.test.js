@@ -73,8 +73,9 @@ test('ExpenseForm test id get testing', () => {
             <ExpenseForm />
         </Provider>
     )
-    const linkElement = screen.getAllByTestId(/ExpenseForm/i);
+    const linkElement = screen.getAllByTestId('ExpenseForm');
 
 })
+
 
 
