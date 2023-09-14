@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import NavBar from '../NavBar/NavBar';
 import { useDispatch } from 'react-redux'
@@ -40,7 +40,7 @@ const Login = () => {
                     dispatch(authActions.tokenId(data.idToken))
                     console.log(data)
 
-                    navigate('/user/profile')
+                    navigate('/user/expense')
                 }
                 else {
                     const data = await response.json();
@@ -67,8 +67,9 @@ const Login = () => {
                     })
                     if (response.ok) {
                         const data = await response.json();
-                        alert('You are successfully SignUp Go for the login!');
-                        console.log(data)
+                        dispatch(authActions.emailId(data.email))
+                        dispatch(authActions.tokenId(data.idToken))
+                        navigate('/user/expense')
                     }
                     else {
                         const data = await response.json();
@@ -105,56 +106,57 @@ const Login = () => {
 
 
     return (
-        <div className='loginHome' data-testid='LoginId'>
-            <NavBar />
-            <div className='container-fluid'>
-                <form className='mx-auto auto1' onSubmit={onSubmitHandler}>
-                    <h4 className='text-center'>{isLogin ? 'Login' : 'Sign Up'}</h4>
-                    {!isLogin ? <h6>{misMatch && 'Password Mismatch!'}</h6> : ''}
-                    <div className="mb-3 mt-3">
-                        <label htmlFor="exampleInputEmail1" className="form-label"></label>
-                        <input
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            type="email"
-                            className="form-control"
-                            placeholder='Email'
-                            id="exampleInputEmail1"
-                            aria-describedby="emailHelp"
-                            required />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label"></label>
-                        <input
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            type="password"
-                            placeholder='Password'
-                            className="form-control"
-                            id="exampleInputPassword2"
-                            required />
-                    </div>
-                    {isLogin && <div className='form-text mt-3' id='emailHelp'>
-                        <Link to={'/password'}>Forget password?</Link>
-                    </div>}
-                    {!isLogin && <div className="mb-3">
-                        <label htmlFor="exampleInputPassword1" className="form-label"></label>
-                        <input
-                            value={confirmPassword}
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            type="password"
-                            placeholder='Confirm Password'
-                            className="form-control"
-                            id="exampleInputPassword1"
-                            required />
-                    </div>}
 
-                    <button type="submit" className="btn btn-primary mt-4">{isLogin ? 'Login' : 'Sign Up'}</button>
-                    <button
-                        onClick={onLoginHandler}
-                        type="submit"
-                        className="btn btn-info mt-4">{isLogin ? 'Don`t Have an acount? Sign Up' : 'Have an acount? Login'}</button>
-                </form>
+        <div>
+            <NavBar />
+            <div className='login_cardMain'>
+                <div className='login-card'>
+                    <div className='column1'>
+                        <h1>{isLogin ? 'Login' : 'Sign up'}</h1>
+                        {!isLogin ? <h6>{misMatch && 'Password Mismatch!'}</h6> : ''}
+                        <form onSubmit={onSubmitHandler}>
+                            <div className='form-item'>
+                                <input
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    type='text'
+                                    className='form-element'
+                                    placeholder='Username or email'
+                                    required />
+                            </div>
+                            <div className='form-item'>
+                                <input
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    type='password'
+                                    className='form-element'
+                                    placeholder='Password'
+                                    required />
+                            </div>
+
+                            {!isLogin && <div className='form-item'>
+                                <input
+                                    value={confirmPassword}
+                                    onChange={(e) => setConfirmPassword(e.target.value)}
+                                    type='password'
+                                    className='form-element'
+                                    placeholder='Confirm password'
+                                    required />
+                            </div>}
+
+                            <Link to={'/password'} className='resername'>Reset your password now</Link>
+                            <div className='flex' >
+                                <button type="submit" className="btn btn-outline-info">{isLogin ? 'Login' : 'Sign Up'}</button>
+                            </div>
+                        </form>
+                        <button
+                            onClick={onLoginHandler}
+                            type="submit"
+                            className="btn btn-primary resername1">{isLogin ? 'Don`t Have an acount? Sign Up' : 'Have an acount? Login'}</button>
+                    </div>
+                    <div className='colomn1'>
+                    </div>
+                </div>
             </div>
         </div>
     )

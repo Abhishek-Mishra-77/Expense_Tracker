@@ -1,0 +1,21 @@
+.aboutPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.cardAbout {
+  max-width: 50rem;
+  max-height: fit-content;
+  margin-top: 5%;
+}
+
+.innerAbout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 2rem;
+}

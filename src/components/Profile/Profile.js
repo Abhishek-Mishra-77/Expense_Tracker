@@ -1,16 +1,8 @@
-import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import ExpenseForm from './ExpenseForm';
-import { expenseActions } from '../../store/expenseReducer';
-import './Profile.css'
+import React, { Fragment } from 'react'
+import NavBar from '../NavBar/NavBar'
+import { Link } from 'react-router-dom'
 
-
-const Home = (props) => {
-
-
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+const Profile = () => {
 
 
     const verifyEmailHandler = async () => {
@@ -45,46 +37,31 @@ const Home = (props) => {
         }
     }
 
-
-    const logOutHandler = () => {
-        alert('Are you sure your want to logOut?')
-        localStorage.removeItem('token');
-        dispatch(expenseActions.expenseAmount())
-        localStorage.removeItem('email')
-        navigate('/Auth')
-    }
-
-
-
-
     return (
-        <>
-            <section className='mainH'>
-                <div className='profile'>
-                    <nav className="navbar bg-body-tertiary mt-3">
-                        <div className="container-fluid">
-                            {/* <img src='https://tse2.mm.bing.net/th?id=OIP.-BAxDoBAPrGrPwvP_4eVmQHaGQ&pid=Api&P=0&h=180' className='logo1' alt='logo' /> */}
-                            <Link
-                                to={'/'}
-                                style={{ color: 'green', fontWeightL: 'bold', fontSize: '40px', fontWeight:'bold' }}
-                                className="navbar-brand "
-                                htmlFor="#">MyWebLink</Link>
-                            <span className="badge text-bg-secondary">Your profile is incomplete.
-                                <Link to={'/user/ProfileComplete'} className='anchor' href='#'>Complete now</Link>
-                                <button onClick={verifyEmailHandler} style={{ marginLeft: '2rem' }} type="submit" className="btn btn-success">verify Email</button>
-                                <button onClick={logOutHandler} style={{ marginLeft: '2rem' }} type="submit" className="btn btn-danger">LogOut</button>
-                            </span>
+        <Fragment>
+            <NavBar />
+            <div className='aboutPage'>
+                <div className='innerAbout'>
+                    <div className="card text-bg-success mb-3 aboutCard" style={{ width: '25rem' }}>
+                        <h1 className="card-header">Profile </h1>
+                        <div className="card-body">
+                            <p className="card-text">Your profile is incomplete to complete your profile please click on the card!</p>
                         </div>
-                    </nav >
-                    <ExpenseForm>
-                        {props.children}
-                    </ExpenseForm>
+                        <Link to={'/user/ProfileComplete'} type="button" className="btn btn-warning">Warning</Link>
+                    </div>
+                    <div className="card text-bg-info mb-3 aboutCard" style={{ width: '27rem' }}>
+                        <h1 className="card-header">Email verification </h1>
+                        <div className="card-body">
+                            <p className="card-text">Your email verification is pending to verify email please click on card!</p>
+                        </div>
+                        <button onClick={verifyEmailHandler} type="button" className="btn btn-success">verify Email</button>
+                    </div>
                 </div>
 
-            </section>
-        </>
+
+            </div>
+        </Fragment>
     )
 }
 
-
-export default Home
+export default Profile

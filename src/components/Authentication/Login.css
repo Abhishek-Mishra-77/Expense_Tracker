@@ -1,63 +1,189 @@
-.loginHome {
-  height: 100vh;
+.login_cardMain {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 4rem;
 }
-.auto1 {
-  width: 27%;
+
+.login-card {
   background-color: white;
-  padding: 30px;
-  border-radius: 20px;
-  border: 1px solid red;
-  margin-top: 90px;
+  border: 1px solid #ddd;
+  box-shadow: 0 10px 50px -30px black;
+  border-radius: 30px;
+  width: 900px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: auto auto;
 }
 
-.btn-primary {
-  width: 100%;
-  border: none;
-  border-radius: 50px;
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(74, 14, 154, 1) 35%,
-    rgba(0, 212, 255, 1) 100%
-  );
+a {
+  text-decoration: none;
+  color: blueviolet;
 }
 
-.btn-info {
-  width: 100%;
-  border: none;
-  border-radius: 50px;
-  background-color: cyan;
+.column1 {
+  padding: 4rem;
 }
 
-.form-control {
-  color: rgba(0, 0, 0, 0.87);
-  border-block-color: rgba(0, 0, 0, 0.42);
-  box-shadow: none !important;
-  border: none;
-  border-bottom: 1px solid;
-  border-radius: 4px 4px 0 0;
+h1 {
+  margin-bottom: 15px;
+  margin: 25px;
 }
 
-h4 {
-  font-size: 2rem !important;
-  font-weight: 700;
-}
-h6 {
-  color: red;
-  text-align: center;
-}
-
-#emailHelp {
-  color: green;
+h2 {
+  margin-bottom: 15px;
+  /* margin: 25px; */
   font-weight: bold;
-  font-size: 13px;
+  font-size: 55px;
 }
-.form-label {
-  font-family: 700 !important;
+/* p {
+  margin: 10px;
+} */
+
+.form-element {
+  width: 100%;
+  background-color: white;
+  padding: 20px 30px;
+  font-size: 18px;
+  margin: 10px;
+  transition: box-shadow 0.2s;
 }
 
-@media only screen and (max-width: 1200px) {
+form {
+  margin-top: 3rem;
+  margin: 10px;
+}
+.resername {
+  margin-left: 15px;
+  margin-top: 15px;
+  text-decoration: none;
+}
+
+.resername1 {
+  margin-left: 20px;
+  margin-top: 15px;
+  text-decoration: none;
+}
+
+.resername:hover {
+  transition: 0.1s;
+  text-decoration: underline;
+}
+
+.btn-outline-info {
+  margin-left: 10px;
+  margin-top: 10px;
+  width: 300px;
+  font-weight: bold;
+  padding: 20px 30px;
+  font-size: 18px;
+  width: 100%;
+}
+.column2 {
+  margin: auto;
+  margin-top: 200px;
+}
+
+@media (max-width: 992px) {
+  .login-card {
+    display: block;
+    width: 500px;
+    text-align: center;
+  }
+  .flex {
+    flex-direction: column;
+    gap: 1;
+  }
+  .btn-outline-info {
+    width: 200px;
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  form {
+    width: 90% !important;
+  }
+}
+
+@media only screen and (max-width: 790px) {
+  form {
+    width: 80% !important;
+  }
+  .form-element {
+    width: 120%;
+    background-color: white;
+    padding: 20px 30px;
+    font-size: 18px;
+    margin: 10px;
+    transition: box-shadow 0.2s;
+  }
+}
+
+@media only screen and (max-width: 590px) {
+  form {
+    width: 80% !important;
+  }
+  .form-element {
+    width: 120%;
+    background-color: white;
+    padding: 20px 30px;
+    font-size: 18px;
+    margin: 10px;
+    transition: box-shadow 0.2s;
+  }
+  .btn-outline-info {
+    margin-top: 10px;
+    width: 400px;
+    font-weight: bold;
+    padding: 20px 30px;
+    font-size: 18px;
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  form {
+    width: 60% !important;
+  }
+  .form-element {
+    width: 150%;
+    background-color: white;
+    padding: 20px 30px;
+    font-size: 18px;
+    transition: box-shadow 0.2s;
+  }
+  .login-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 10px 50px -30px black;
+    border-radius: 30px;
+    width: 1000px;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+}
+
+@media only screen and (max-width: 360px) {
   form {
     width: 70% !important;
+  }
+  .form-element {
+    width: 150%;
+    background-color: white;
+    padding: 20px 30px;
+    font-size: 18px;
+    transition: box-shadow 0.2s;
+  }
+  .login-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 10px 50px -30px black;
+    width: 1200px;
+    text-align: center;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: auto auto;
   }
 }

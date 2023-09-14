@@ -100,9 +100,9 @@ const ProfileComplete = () => {
                 </div>
             </nav >
 
-            <div className='mainProfile mt-5'>
+            <div className='mt-5'>
                 <form className="row align-items-center profile-form" onSubmit={onSubmitHandler}>
-                    <div className="row g-3">
+                    <div className="row g-3 formElements">
                         <h3>Contact Details</h3>
                         <div className="col">
                             <ion-icon name="logo-github"></ion-icon>
@@ -124,11 +124,10 @@ const ProfileComplete = () => {
                                 className='profilePhoto mt-3'
                                 aria-label="Last name" />
                         </div>
-
                     </div>
                     <div className="col-auto mt-4">
                         <button type="submit" className="btn btn-warning">Update</button>
-                        <Link to={'/user/profile'} style={{ marginLeft: '2rem' }} type="button" className="btn btn-danger">Cancel</Link>
+                        <Link to={'/user/profile'} style={{ marginLeft: '2rem' }} type="button" className="btn btn-danger">Back to page</Link>
                     </div>
                 </form>
                 <div>

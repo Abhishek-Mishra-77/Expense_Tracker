@@ -1,26 +1,27 @@
 import React from 'react';
 import Login from './components/Authentication/Login';
-import Profile from './components/Profile/Profile';
+import ExepenseMain from './components/Expenses/ExepenseMain';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ProfileComplete from './components/ProfileCompelete/ProfileComplete';
 import ForgetPassword from './components/Authentication/ForgetPassword';
 import PrivateRouts from './components/PrivateRoutes/PrivateRouts';
-import Home from './components/Home/Home';
+import About from './components/About/About';
+import Profile from './components/Profile/Profile';
 
 
 function App() {
   return (
     <Router>
-      {/* <NavBar /> */}
       <Routes>
         <Route path='/Auth' element={<Login />} />
         <Route path='/password' element={<ForgetPassword />} />
-        <Route path='/' element={<Home />} />
+        <Route path='/about' element={<About />} />
         <Route path='/user' element={<PrivateRouts />}>
-          <Route path='profile' element={<Profile />} />
+          <Route path='expense' element={<ExepenseMain />} />
           <Route path='ProfileComplete' element={<ProfileComplete />} />
+          <Route path='profile' element={<Profile />} />
         </Route>
-        <Route path='*' element={<Home />} />
+        <Route path='*' element={<About />} />
       </Routes>
 
     </Router>
