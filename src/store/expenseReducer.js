@@ -10,8 +10,27 @@ const expenseSlice = createSlice({
             state.totalAmount = action.payload
         },
         allExpenses(state, action) {
-            state.allExpenses = action.payload
+            const newObj = action.payload
+            const existingExpense = state.allExpenses.find((expense) => expense.id === newObj.id);
+            if (!existingExpense) {
+                state.allExpenses.push({
+                    enteredAmount: newObj.enteredAmount,
+                    enteredDescription: newObj.enteredDescription,
+                    productType: newObj.productType,
+                    id: newObj.id
+                })
+            }
+            else {
+                existingExpense.enteredAmount = newObj.enteredAmount
+                existingExpense.enteredDescription = newObj.enteredDescription
+                existingExpense.productType = newObj.productType
+                existingExpense.id = newObj.id
+            }
         },
+        expenseRemove(state, action) {
+            const id = action.payload;
+            state.allExpenses = state.allExpenses.filter((expense) => expense.id !== id)
+        }
     }
 })
 

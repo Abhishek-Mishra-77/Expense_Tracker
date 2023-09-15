@@ -1,0 +1,11 @@
+.profilePage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.aboutCard {
+  max-width: fit-content;
+  flex-direction: row;
+}

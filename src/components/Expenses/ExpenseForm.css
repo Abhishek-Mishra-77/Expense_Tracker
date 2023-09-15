@@ -1,0 +1,26 @@
+.profilePage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+}
+
+.cardexpense {
+  max-width: 80rem;
+  max-height: fit-content;
+  margin-top: 5%;
+  background: linear-gradient(
+    90deg,
+    rgb(27, 23, 101) 0%,
+    rgba(0, 212, 255, 1) 100%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  box-shadow: 2px 2px 10px;
+}
+
+
+.totalExpenses{
+    max-width: 17rem;
+    max-height: 5rem;
+}
+

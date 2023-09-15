@@ -1,12 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './ProfileComplete.css';
+import NavBar from '../NavBar/NavBar';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../../store/auth';
+
 
 const ProfileComplete = () => {
 
     const [userName, setUserName] = useState('');
     const [photoUrl, setPhotoUrl] = useState('');
     const getToken = localStorage.getItem('token');
+    const emailId = localStorage.getItem('email')
+    const dispatch = useDispatch();
 
 
     useEffect(() => {
@@ -28,8 +34,9 @@ const ProfileComplete = () => {
                         const data = await response.json();
                         const userData = data.users;
                         setPhotoUrl(userData[0].photoUrl);
-                        console.log(userData[0].photoUrl)
                         setUserName(userData[0].displayName)
+                        dispatch(authActions.userProfileName(userData[0].displayName))
+
                     }
                     else {
                         const data = await response.json();
@@ -89,51 +96,64 @@ const ProfileComplete = () => {
     };
 
     return (
-        <div>
-            <nav className="navbar navbar1" data-testid='Profilecomplete'>
-                <div className="container-fluid">
-                    <h3 className='heading'> Winners never quite , Quitters never win.</h3>
-                    <span className="badge text-bg-secondary">Your profile is 64% completed. A complete Profile has <br />
-                        higher changes of landing a job .
-                        <a to={'/ProfileComplete'} className='anchor' href='#'>Complete now</a>
-                    </span>
-                </div>
-            </nav >
+        <Fragment>
+            <NavBar />
+            <div className='container profilePage'>
+                <div className="card  mb-4 cardprofile" style={{ color: 'white' }}>
+                    <h2 className="card-header">Profile update</h2>
 
-            <div className='mt-5'>
-                <form className="row align-items-center profile-form" onSubmit={onSubmitHandler}>
-                    <div className="row g-3 formElements">
-                        <h3>Contact Details</h3>
-                        <div className="col">
-                            <ion-icon name="logo-github"></ion-icon>
-                            <label className='profile1'>Full Name</label>
-                            <input
-                                value={userName}
-                                onChange={(e) => setUserName(e.target.value)}
-                                type="text"
-                                className='profileName m-3'
-                                aria-label="First name" />
-                        </div>
-                        <div className="col">
-                            <ion-icon name="globe-outline"></ion-icon>
-                            <label className='profile1'>Profile Photo URL</label>
-                            <input
-                                value={photoUrl}
-                                onChange={(e) => setPhotoUrl(e.target.value)}
-                                type="text"
-                                className='profilePhoto mt-3'
-                                aria-label="Last name" />
-                        </div>
+                    <div className="card-body">
+                        <h3 className="card-title">Contact Details</h3>
+
+                        <form className="row g-3" onSubmit={onSubmitHandler}>
+                            <div className="col-md-6">
+                                <ion-icon name="logo-github"></ion-icon>
+                                <label className='profile1'>Full Name</label>
+                                <input
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
+                                    type="text"
+                                    className="form-control"
+                                    id="inputEmail4" />
+                            </div>
+                            <div className="col-md-6">
+                                <ion-icon name="globe-outline"></ion-icon>
+                                <label className='profile1'>Profile Photo URL</label>
+                                <input
+                                    value={photoUrl}
+                                    onChange={(e) => setPhotoUrl(e.target.value)}
+                                    type='text'
+                                    className="form-control"
+                                    id="inputPassword4" />
+                            </div>
+                            <div className="col-md-6 gap-3">
+                                <label className='profile1'>Email</label>
+                                <input
+                                    data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                    value={emailId}
+                                    type='email'
+                                    disabled
+                                    className="form-control"
+                                    id="inputPassword4" />
+                            </div>
+                            <div className="col-md-6">
+                                <label className='profile1'>Token Id</label>
+                                <input
+                                    value={getToken}
+                                    type='text'
+                                    disabled
+                                    className="form-control"
+                                    id="inputPassword4" />
+                            </div>
+                            <div className="col-auto mt-4">
+                                <button type="submit" className="btn btn-warning">Update</button>
+                                <Link to={'/user/profile'} style={{ marginLeft: '2rem' }} type="button" className="btn btn-danger">Back to page</Link>
+                            </div>
+                        </form>
                     </div>
-                    <div className="col-auto mt-4">
-                        <button type="submit" className="btn btn-warning">Update</button>
-                        <Link to={'/user/profile'} style={{ marginLeft: '2rem' }} type="button" className="btn btn-danger">Back to page</Link>
-                    </div>
-                </form>
-                <div>
                 </div>
-            </div>
-        </div>
+            </div >
+        </Fragment>
     )
 }
 

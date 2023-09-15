@@ -12,3 +12,9 @@
 .log {
   text-decoration: none;
 }
+
+@media screen and (max-width: 370px) {
+  .logout {
+    width: 3.2rem;
+  }
+}

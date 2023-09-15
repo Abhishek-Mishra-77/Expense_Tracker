@@ -2,7 +2,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initalState = {
     IdToken: null,
-    email: null
+    email: null,
+    userName: ''
 }
 
 
@@ -18,6 +19,9 @@ const authSlice = createSlice({
             state.email = action.payload
             localStorage.setItem('email', state.email)
         },
+        userProfileName(state, action) {
+            state.userName = action.payload
+        }
     }
 })
 

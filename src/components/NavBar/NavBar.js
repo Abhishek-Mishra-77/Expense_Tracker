@@ -47,7 +47,7 @@ const NavBar = () => {
                         </li>
                     </ul>
                 </div>
-                {idToken && <a type="button" onClick={logOutHandler} class="btn btn-danger">Logout</a>}
+                {idToken && <a type="button" onClick={logOutHandler} className="btn btn-danger logout">Logout</a>}
             </div>
         </nav>
     )

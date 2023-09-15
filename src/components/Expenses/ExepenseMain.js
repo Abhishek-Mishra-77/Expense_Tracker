@@ -4,8 +4,8 @@ import './ExpenseMain.css'
 import NavBar from '../NavBar/NavBar';
 
 
-const ExepenseMain = (props) => {
 
+const ExepenseMain = (props) => {
 
     return (
         <Fragment>
@@ -14,7 +14,6 @@ const ExepenseMain = (props) => {
                 <ExpenseForm>
                     {props.children}
                 </ExpenseForm>
-
             </section>
         </Fragment>
     )

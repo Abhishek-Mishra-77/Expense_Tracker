@@ -1,4 +1,6 @@
-.expenseSection {
-  margin-left: 3rem;
-  width: 100%;
+.expenseItems {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
 }
